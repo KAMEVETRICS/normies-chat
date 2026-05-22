@@ -1,26 +1,156 @@
 @import "tailwindcss";
 
+/* === Fonts === */
+@font-face {
+  font-family: "NormiesFont";
+  src: url("https://normiefont.up.railway.app/NormiesFont.otf")
+    format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-normies: "NormiesFont", monospace;
+  
+  /* Light theme (default) — Aged Parchment */
+  --bg-primary: #fef8f6;
+  --bg-secondary: #e8dfc5;
+  --bg-card: #eae2ce;
+  --bg-nav: #e8dfc5;
+  --bg-input: transparent;
+  --text-primary: #2c241a;
+  --text-secondary: #4c463e;
+  --text-muted: #7e766d;
+  --text-inverse: #f5f0ed;
+  --border-color: rgba(44, 36, 26, 0.15);
+  --border-strong: rgba(44, 36, 26, 0.3);
+  --accent-glow: #8b5cf6;
+  --accent-glow-soft: rgba(139, 92, 246, 0.3);
+  --seal-bg: #ba1a1a;
+  --seal-border: #93000a;
+  --surface-container: #f2edea;
+  --surface-highest: #e6e1df;
+  --grid-color: rgba(44, 36, 26, 0.05);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.dark {
+  --bg-primary: #1a1816;
+  --bg-secondary: #2a2520;
+  --bg-card: #32302b;
+  --bg-nav: #232019;
+  --bg-input: rgba(255, 255, 255, 0.05);
+  --text-primary: #f5f0ed;
+  --text-secondary: #cfc5bb;
+  --text-muted: #978a7d;
+  --text-inverse: #2c241a;
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
+  --accent-glow: #a78bfa;
+  --accent-glow-soft: rgba(167, 139, 250, 0.3);
+  --seal-bg: #dc2626;
+  --seal-border: #b91c1c;
+  --surface-container: #2a2520;
+  --surface-highest: #3a3530;
+  --grid-color: rgba(255, 255, 255, 0.03);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-space-grotesk), system-ui, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+.font-normies { font-family: var(--font-normies); }
+.font-headline { font-family: var(--font-newsreader), Georgia, serif; }
+
+/* Techno-Mystical Background Grid */
+.scroll-grid {
+  background-image: linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Glowing text */
+.glow-text {
+  color: var(--accent-glow);
+  text-shadow: 0 0 15px var(--accent-glow-soft), 0 0 30px rgba(139, 92, 246, 0.2);
+}
+
+/* Card — parchment inlay */
+.parchment-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  position: relative;
+}
+.parchment-card::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border: 2px dashed var(--border-color);
+  pointer-events: none;
+}
+
+/* Wax seal */
+.wax-seal {
+  width: 112px; height: 112px;
+  background-color: var(--seal-bg);
+  border-radius: 9999px;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 20px rgba(186,26,26,0.3), inset 0 -6px 12px rgba(0,0,0,0.4), inset 0 4px 12px rgba(255,255,255,0.3);
+  border: 1px solid var(--seal-border);
+  transition: transform 0.3s ease; cursor: pointer;
+}
+.wax-seal:hover { transform: scale(1.05); }
+.wax-seal:active { transform: scale(0.95); box-shadow: 0 2px 10px rgba(186,26,26,0.5), inset 0 2px 15px rgba(0,0,0,0.6); }
+
+.wax-seal-ring {
+  width: 80px; height: 80px;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 9999px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  box-shadow: inset 0 0 8px rgba(0,0,0,0.2);
+}
+
+/* Active avatar glow */
+.avatar-glow {
+  box-shadow: 0 0 20px var(--accent-glow-soft);
+  border-color: rgba(139, 92, 246, 0.5) !important;
+}
+
+/* Ink-line separator */
+.ink-line {
+  border: none; height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-strong), var(--border-strong), transparent);
+}
+
+/* Chat bubbles */
+.chat-bubble-normie { background-color: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-primary); }
+.chat-bubble-user { background-color: var(--text-primary); color: var(--bg-primary); }
+
+/* Trait badge */
+.trait-badge { background-color: var(--text-primary); color: var(--bg-primary); border-left: 3px solid var(--accent-glow); }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 3px; }
+
+/* Purple scrollbar for traits panel */
+.purple-scroll::-webkit-scrollbar { width: 10px; }
+.purple-scroll::-webkit-scrollbar-thumb { background: #8b5cf6; border-radius: 5px; }
+.purple-scroll::-webkit-scrollbar-thumb:hover { background: #7c3aed; }
+.purple-scroll::-webkit-scrollbar-track { background: rgba(139, 92, 246, 0.1); border-radius: 5px; }
+.purple-scroll { scrollbar-color: #8b5cf6 rgba(139, 92, 246, 0.1); scrollbar-width: auto; }
+.dark .purple-scroll::-webkit-scrollbar-thumb { background: #a78bfa; }
+.dark .purple-scroll::-webkit-scrollbar-thumb:hover { background: #8b5cf6; }
+.dark .purple-scroll::-webkit-scrollbar-track { background: rgba(167, 139, 250, 0.1); }
+.dark .purple-scroll { scrollbar-color: #a78bfa rgba(167, 139, 250, 0.1); }
+
+/* Animations */
+.slide-up { animation: slideUp 0.6s ease forwards; opacity: 0; transform: translateY(20px); }
+@keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
+@keyframes seal-spin { to { transform: rotate(360deg); } }
+.seal-dotted-ring { animation: seal-spin 60s linear infinite; }
